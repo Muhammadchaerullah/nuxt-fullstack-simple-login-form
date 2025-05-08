@@ -1,16 +1,24 @@
 import { defineEventHandler, readBody, setCookie } from 'h3'
 import * as z from 'zod'
 
-const loginSchema = z.object({
-  username: z.string().min(1, 'Username is required'),
-  password: z.string().min(1, 'Password is required'),
-})
+const ZodSchema = z.object({
+  username: z
+    .string({
+      required_error: "Username is required"
+    })
+    .min(4, { message: "Invalid username" }),
+  password: z
+    .string({
+      required_error: "Password is required"
+    })
+    .min(4, { message: "Password must be at least 4 characters" })
+});
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   
   try {
-    loginSchema.parse(body)
+    ZodSchema.parse(body)
 
     if (body.username === 'admin' && body.password === 'admin') {
       setCookie(event, 'user', 'admin', { 

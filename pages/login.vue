@@ -17,7 +17,6 @@ const password = ref('')
 const toast = useToast()
 const router = useRouter()
 
-
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
     // Sending data to backend API
@@ -46,6 +45,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     console.error(error)
   }
 }
+
+onMounted(() => {
+  const userCookie = useCookie('user')
+  if (userCookie.value) {
+    userCookie.value = null
+  }
+})
+
 </script>
 
 <template>
@@ -53,16 +60,17 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     <div class="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <UForm :schema="schema" :state="{ username, password }" class="space-y-4" @submit="onSubmit">
         <UFormField label="Username" name="username">
-          <UInput v-model="username" class="w-full" />
+          <UInput v-model="username" class="w-full pt-2" style="padding: 12px;"/>
         </UFormField>
 
         <UFormField label="Password" name="password">
-          <UInput v-model="password" type="password" class="w-full" />
+          <UInput v-model="password" type="password" class="w-full pt-2" style="padding: 12px;"/>
         </UFormField>
-
-        <UButton type="submit" class="w-full py-3">
-          Submit
-        </UButton>
+        <div class="pt-2">
+          <UButton type="submit" class="w-full py-3 text-center flex justify-center cursor-pointer text-white font-bold">
+            Submit
+          </UButton>
+        </div>
       </UForm>
     </div>
   </div>
