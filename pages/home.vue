@@ -11,7 +11,14 @@
       >
         Go to Admin Dashboard
       </router-link>
-      <p v-else class="text-sm text-gray-500">You don’t have admin access.</p>
+      <p v-else class="text-sm text-gray-500">You don’t have admin access. wanna try? &nbsp;
+        <router-link
+        to="/admin"
+        class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition"
+      >
+        Go to Admin Dashboard
+      </router-link>
+      </p>
     </div>
   </div>
 </template>
