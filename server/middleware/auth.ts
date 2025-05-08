@@ -9,6 +9,6 @@ export default defineEventHandler(async (event) => {
   }
 
   if (user === 'employee' && path.includes('/admin')) {
-    return sendRedirect(event, '/login')
+    return sendRedirect(event, '/home')
   }
 })
